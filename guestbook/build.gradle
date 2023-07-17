@@ -77,4 +77,11 @@ compileQuerydsl {
 }
 // querydsl 추가 끝
 
+/**
+ * comileQuerydsl.doFirst 추가    - 처음 빌드만 성공하고 그 이후로 작동이 되지 않아서 추가
+ */
 
+compileQuerydsl.doFirst {
+	if(file(querydslDir).exists())
+		delete(file(querydslDir))
+}
