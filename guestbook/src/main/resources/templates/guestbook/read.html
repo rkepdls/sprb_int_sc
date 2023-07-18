@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content})}">
 
@@ -19,9 +21,7 @@
 
       <div class="form-group">
         <label>Content</label>
-        <textarea type="text" class="form-control" rows="5" name="content" readonly >
-          [[${dto.content}]]
-        </textarea>
+        <textarea type="text" class="form-control" rows="5" name="content" readonly >[[${dto.content}]]</textarea>
       </div>
 
       <div class="form-group">
@@ -39,11 +39,12 @@
         <input type="text" class="form-control" name="modDate" th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH.mm.ss')}" readonly >
       </div>
 
-      <a th:href="@{/guestbook/modify(gno = ${dto.gno}, page = ${requestDTO.page})}">
+      <br><br>
+      <a th:href="@{/guestbook/modify(gno = ${dto.gno}, page = ${requestDTO.page}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">
         <button type="button" class="btn btn-primary">Modify</button>
       </a>
 
-      <a th:href="@{/guestbook/list(page = ${requestDTO.page})}">
+      <a th:href="@{/guestbook/list(page = ${requestDTO.page}, type=${pageRequestDTO.type}, keyword=${pageRequestDTO.keyword})}">
         <button type="button" class="btn btn-info">List</button>
       </a>
 
