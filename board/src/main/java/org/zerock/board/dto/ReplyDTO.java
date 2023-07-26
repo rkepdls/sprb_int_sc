@@ -11,13 +11,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BoardDTO {
+public class ReplyDTO {
+    private Long rno;
+    private String text;
+    private String replyer;
     private Long bno;
-    private String title;
-    private String content;
-    private String writerEmail;
-    private String writerName;
-    private LocalDateTime regDate;
-    private LocalDateTime modDate;
-    private Long replyCount;
+    private LocalDateTime regDate, modDate;
 }

@@ -1,9 +1,9 @@
 package org.zerock.board.entity;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
@@ -13,11 +13,8 @@ import javax.persistence.Id;
 @Getter
 @ToString
 public class Member extends BaseEntity {
-
-    @Id
+    @Id @GeneratedValue
     private String email;
-
     private String password;
-
     private String name;
 }
