@@ -5,14 +5,13 @@
     <title>Title</title>
 </head>
 <body>
+<input type="file" name="uploadFiles" multiple />
+<button class="uploadBtn">Upload</button>
+<div class="uploadResult">
 
-    <input name="uploadFiles" type="file" multiple>
-    <button class="uploadBtn">Upload</button>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous">
-    </script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         $('.uploadBtn').click(function() {
@@ -26,7 +25,36 @@
             console.log(files[i]);
             formData.append("uploadFiles", files[i]);
             }
-        });
+
+            // 실제 업로드 부분
+            // Upload ajax
+            $.ajax({
+                    url : '/uploadAjax',
+                    processData : false,
+                    contentType : false,
+                    data : formData,
+                    type : 'POST',
+                    dataType : 'json',
+                    success : function(result) {
+                        // 나중에 화면 처리
+                        showUploadedImages(result);
+                    },
+                    error : function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                    }
+            }); // $.ajax
+        }); // uploadBtn
+
+        function showUploadedImages(arr) {
+
+            console.log(arr);
+
+            var divArea = $(".uploadResult");
+
+            for (var i = 0; i < arr.length; i++) {
+                divArea.append("<img src='/display?fileName="+arr[i].imageURL+"'>");
+            }
+        } // function
     </script>
 </body>
 </html>
