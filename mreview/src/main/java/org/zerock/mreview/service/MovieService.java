@@ -71,4 +71,6 @@ public interface MovieService {
         }
         return  entityMap;
     }
+
+    MovieDTO getMovie(Long mno);
 }
