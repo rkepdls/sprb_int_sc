@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
@@ -61,6 +62,14 @@
             Review Count <span class="badge badge-light">[[${dto.reviewCnt}]]</span>
         </button>
 
+        <button type="button" class="btn btn-info addReviewBtn">
+            Review Register
+        </button>
+
+        <div class="list-group reviewList">
+
+        </div>
+
         <div class="reviewModal modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -115,11 +124,15 @@
             </div>
         </div>
 
+        <script th:src="@{/js/starrr.js}"></script>
+        <link th:href="@{/css/starrr.css}" rel="stylesheet">
+        <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.min.css">
+
         <script>
             $(document).ready(function(e) {
 
                 var grade = 0;
-                    var mno = [[${dto.mno}]];
+                var mno = [[${dto.mno}]];
 
                     $('.starrr').starrr({
                         rating: grade,
@@ -131,7 +144,41 @@
                         }
                     });
 
-                    //$(".reviewModal").modal("show"); 미리 보기용
+                    // $(".reviewModal").modal("show"); 미리 보기용
+
+                    var reviewModal = $(".reviewModal");
+                    var inputMid = $('input[name="mid"]');
+                    var inputText = $('input[name="text"]');
+
+                    $(".addReviewBtn").click(function() {
+                        inputMid.val("");
+                        inputText.val("");
+
+                        $(".removeBtn, .modifyBtn").hide();
+                        $(".reviewSaveBtn").show();
+
+                        reviewModal.modal('show');
+                    });
+
+                    $('.reviewSaveBtn').click(function() {
+
+                        var data = {mno:mno, grade:grade, text:inputText.val(), mid: inputMid.val()};
+
+                        console.log(data);
+
+                        $.ajax({
+                            url: '/reviews/'+mno,
+                            type: "POST",
+                            data: JSON.stringify(data),
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "text",
+                            success: function(result) {
+                                console.log("result: " +result);
+                                self.location.reload();
+                            }
+                        })
+                        reviewModal.modal('hide');
+                    });
 
                 });
         </script>
