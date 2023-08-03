@@ -27,6 +27,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/sample/member").hasRole("USER");
 
         http.formLogin();
+        http.csrf().disable();
+
+        http.oauth2Login();
     }
 
     /*@Override            // 더이상 사용하지 않음
