@@ -10,8 +10,8 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.zerock.club.entity.ClubMember;
-import org.zerock.club.entity.ClubMemberRepository;
 import org.zerock.club.entity.ClubMemberRole;
+import org.zerock.club.repository.ClubMemberRepository;
 import org.zerock.club.security.dto.ClubAuthMemberDTO;
 
 import java.util.Optional;

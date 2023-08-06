@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.zerock.club.entity.ClubMember;
 import org.zerock.club.entity.ClubMemberRole;
-import org.zerock.club.entity.ClubMemberRepository;
+import org.zerock.club.repository.ClubMemberRepository;
 
 import java.util.Optional;
 import java.util.stream.IntStream;
