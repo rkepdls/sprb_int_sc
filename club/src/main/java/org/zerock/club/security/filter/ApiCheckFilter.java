@@ -2,6 +2,7 @@ package org.zerock.club.security.filter;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -37,10 +38,30 @@ public class ApiCheckFilter extends OncePerRequestFilter {
             log.info("ApiCheckFilter............................");
             log.info("ApiCheckFilter............................");
 
-            return;
+            boolean checkHeader = checkAuthHeader(request);
 
+            if (checkHeader) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+            return;
         }
 
         filterChain.doFilter(request, response);    // 필터의 다음 단계로 넘어가는 역할 - SecurityConfig를 통해서 스프링 빈으로 설정
+    }
+
+    private boolean checkAuthHeader(HttpServletRequest request) {
+
+        boolean checkResult = false;
+
+        String authHeader = request.getHeader("Authorization");
+
+        if (StringUtils.hasText(authHeader)) {
+            log.info("Authprozatopm exist: "+authHeader);
+            if (authHeader.equals("12345678")) {
+                checkResult = true;
+            }
+        }
+        return  checkResult;
     }
 }

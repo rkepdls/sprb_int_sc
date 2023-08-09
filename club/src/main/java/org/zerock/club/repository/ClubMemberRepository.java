@@ -1,5 +1,6 @@
 package org.zerock.club.repository;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -7,6 +8,7 @@ import org.zerock.club.entity.ClubMember;
 
 import java.util.Optional;
 
+@Configuration
 public interface ClubMemberRepository extends JpaRepository<ClubMember, String > {
 
     @EntityGraph(attributePaths = {"roleSet"}, type = EntityGraph.EntityGraphType.LOAD)
